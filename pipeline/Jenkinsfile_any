@@ -1,28 +1,16 @@
 pipeline{
-<<<<<<< HEAD
     agent { label 'slave1'}
 
     stages {
         stage('stage1'){
-=======
-    agent any
-    
-    stages {
-        
-        stage('stage1') {
->>>>>>> 9e421f57d9918fbde940a13faa65b40ddc4a9ae9
             steps {
                 sh '''
                 sleep 5
                 echo "This is stage 1"
                 '''
-<<<<<<< HEAD
 
-=======
->>>>>>> 9e421f57d9918fbde940a13faa65b40ddc4a9ae9
             }
         }
-        
         stage('stage 2') {
             steps {
                 sh '''
@@ -35,8 +23,4 @@ pipeline{
             }
         }
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 9e421f57d9918fbde940a13faa65b40ddc4a9ae9
