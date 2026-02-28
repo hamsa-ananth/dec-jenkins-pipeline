@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+timestamp=$(date +"%d-%B=%y %I:%M%p")
+git pull
+git add --all
+git commit -m "$timestamp"
+git push
+
+echo "PUSHED: $timestamp"
