@@ -1,13 +1,13 @@
 pipeline{
     agent any
     
-    stage{
+    stages{
         stage('stage1'){
             steps {
-                batch 'sleep 5'
+                sh 'sleep 5'
                 echo "This is stage 1"
 
-            batch '''
+            sh'''
             sleep 5
             echo "This is linux batch"
             '''
