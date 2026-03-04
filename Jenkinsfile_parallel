@@ -1,0 +1,27 @@
+pipeline{
+    agent any
+    stages {
+        stage('stage1){
+        steps{
+        echo " this is stage1 running"
+        sh 'sleep 5'
+        }
+        }
+        stage('parallel testing'){
+        parallel {
+        stage('windows running'){
+        steps{
+        echo 'this is windows running'
+        sh 'sleep 5'
+        }}}}
+        stage('linux running'){
+        steps{
+        echo ' this is linux running'
+        sh 'sleep 5'
+        }}
+    }
+    }
+    stage ('final') {
+    steps{
+    echo 'this is final stage'
+    }}
