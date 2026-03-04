@@ -38,7 +38,7 @@ pipeline{
             echo "this is stage 3 and current env is ${env.CURRENT_ENV}"
            sh 'sleep 5'
         }
-    }
+    
             
     
     
