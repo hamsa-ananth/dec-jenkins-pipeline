@@ -7,7 +7,7 @@ pipeline{
         CURRENT_ENV = 'prod'
     }
     stages{
-        stage('stage 1 when branch')
+        stage('stage 1 when branch') {
         when {
             branch 'main'
         }
@@ -19,7 +19,7 @@ pipeline{
             '''
         }
     }
-    stage('when parameter')
+    stage(' stage2 when environment'){
     when{
         environment name: 'CURRENT_ENV', value: 'prod'
     }
@@ -28,16 +28,17 @@ pipeline{
         sh 'sleep 5'
     }
 }
-    stage('when parameter')
+    stage('stage3 when parameter'){
     when{
-        branch 'main'
-        environment name: 'CURRENT_ENV', value: 'prod'
         expression {params.DEPLOY == true}
         }
         steps{
             echo "this is stage 3 and current env is ${env.CURRENT_ENV}"
            sh 'sleep 5'
         }
+    }
+    }
+}
     
             
     
