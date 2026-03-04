@@ -1,0 +1,37 @@
+pipeline{
+    agent any
+    stages {
+        stage('stage1'){
+            steps{
+                catchError(buildResult: 'SUCCESS', stageEsult: 'FAILURE'){
+                    echo 'this is stage1'
+                    sh 'sleep 5'
+                    sh 'exit 1'
+
+                }
+            }
+        }
+        stage('parallel testing'){
+             parallel {
+                stage('windows running'){
+                 steps{
+                  echo 'this is windows running'
+                  sh 'sleep 5'
+                }
+             }
+                stage('linux running'){
+                 steps{
+                  echo ' this is linux running'
+                  sh 'sleep 5'
+                 }
+            }
+        }
+    }
+                stage ('final') {
+                 steps{
+                  echo 'this is final stage'
+                  }
+                }
+    }
+}
+        
