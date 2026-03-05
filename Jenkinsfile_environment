@@ -11,10 +11,11 @@ pipeline{
 
         stage('CHECKOUT'){
             steps{
-                checkout scmGit(branches: [[name: '*/main']],
+                checkout ([$class : 'GitSCM',
+                branches: [[name: '*/main']],
                 extensions: [], 
                 userRemoteConfigs: [[credentialsId: '0b409c16-3937-4dfb-93c0-064b74d55b6c', 
-                url: 'https://github.com/hamsa-ananth/Jenkins_demo.git']])
+                url: 'https://github.com/hamsa-ananth/Jenkins_demo.git']]])
             }
         }
     }
