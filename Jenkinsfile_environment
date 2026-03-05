@@ -18,7 +18,7 @@ pipeline{
                 checkout ([$class : 'GitSCM',
                 branches: [[name: '*/main']],
                 extensions: [],
-                userRemoteConfigs: [[credentialsId: 'dec-jenkins-pipeline', 
+                userRemoteConfigs: [[credentialsId: 'connect_to_checkout', 
                 url: 'https://github.com/hamsa-ananth/dec-jenkins-pipeline.git']]])
                 
                 sh '''
