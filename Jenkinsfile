@@ -1,28 +1,77 @@
 pipeline{
-    agent none
+    agent any
+     
+    environment {
+        CURRENT_ENV = 'prod'
+    }
+    
 
-    stages {
-        stage('stage1'){
-            agent { label 'slave1'}
-            steps {
+    parameters {
+        booleanParam(name: 'DEPLOY', description:'DEPLOY APP')
+    }
+    
+    
+    stages{
+
+        stage('CHECKOUT'){
+            steps{
+                checkout ([$class : 'GitSCM',
+                branches: [[name: '*/main']],
+                extensions: [],
+                userRemoteConfigs: [[credentialsId: 'dec-jenkins-pipeline', 
+                url: 'https://github.com/hamsa-ananth/dec-jenkins-pipeline.git']]])
+                
                 sh '''
-                sleep 5
-                echo "This is stage 1"
-                '''
-            }
-        }
-        
-        stage('build') {
-            agent { label 'slave2'}
-            steps {
-                sh '''
-                #!/bin/bash
-                pwd
-                ls -lrt
-                sleep 5
-                echo "This is stage 2"
-                '''
+                    echo GIT_BRANCH : $GIT_BRANCH
+                    echo BRANCH_NAME : $BRANCH_NAME
+                    '''
+                } 
+s
+
             }
         }
     }
+    
+        stage('STAGE1 when branch') {
+        when {
+            expression{
+                return env.GIT_BRANCH == 'origin/main'
+            }
+        }
+        steps{
+            echo "this is stage 1 and current env is ${env.CURRENT_ENV}"
+            sh '''
+            pwd
+            ls -lrt
+            sleep 5
+            
+            '''
+        }
+    }
+    stage(' stage2 when environment'){
+    when{
+        environment name: 'CURRENT_ENV', value: 'prod'
+    }
+    steps{
+        echo "this is stage 2 and current env is ${env.CURRENT_ENV}"
+        sh '''
+        pwd
+        ls -lrt
+        sleep 5
+        '''
+    }
 }
+    stage('stage3 when parameter'){
+    when{
+        expression {params.DEPLOY == true}
+        }
+        steps{
+            echo "this is stage 3 and current env is ${env.CURRENT_ENV}"
+           sh 'sleep 5'
+        }
+    }
+
+    
+            
+    
+    
