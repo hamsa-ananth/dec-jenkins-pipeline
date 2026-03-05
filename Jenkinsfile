@@ -12,7 +12,6 @@ pipeline{
     
     
     stages{
-
         stage('CHECKOUT'){
             steps{
                 checkout ([$class : 'GitSCM',
@@ -26,7 +25,7 @@ pipeline{
                     echo BRANCH_NAME : $BRANCH_NAME
                     '''
                 } 
-s
+
 
             }
         }
