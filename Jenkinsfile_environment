@@ -16,10 +16,10 @@ pipeline{
         stage('CHECKOUT'){
             steps{
                 checkout ([$class : 'GitSCM',
-                 branches: [[name: '*/main']],
-                 extensions: [], 
-                 userRemoteConfigs: [[credentialsId: '0b409c16-3937-4dfb-93c0-064b74d55b6c', 
-                 url: 'https://github.com/hamsa-ananth/dec-jenkins-pipeline.git']]])
+                branches: [[name: '*/main']],
+                extensions: [],
+                userRemoteConfigs: [[credentialsId: 'github-token', 
+                url: 'https://github.com/hamsa-ananth/Jenkins_demo.git']]])
                 
                 sh '''
                     echo GIT_BRANCH : $GIT_BRANCH
