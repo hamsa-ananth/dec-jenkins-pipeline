@@ -1,13 +1,14 @@
 pipeline{
     agent any
     parameters{
-        booleanParam(name: 'DEPLOY', description:'DEPLOY APP)')
+        booleanParam(name: 'DEPLOY', description:'DEPLOY APP')
     }
     
     environment {
         CURRENT_ENV = 'prod'
     }
     stages{
+
         stage('CHECKOUT'){
             steps{
                 checkout scmGit(branches: [[name: '*/main']],
@@ -48,7 +49,7 @@ pipeline{
            sh 'sleep 5'
         }
     }
-    }
+}
 
     
             
