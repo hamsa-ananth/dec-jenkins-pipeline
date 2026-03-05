@@ -12,8 +12,9 @@ pipeline{
     
     
     stages{
-        stage('CHECKOUT'){
-            steps{
+
+        stage('CHECKOUT') {
+            steps {
                 checkout ([$class : 'GitSCM',
                 branches: [[name: '*/main']],
                 extensions: [],
@@ -28,47 +29,46 @@ pipeline{
 
 
             }
-        }
-    }
     
         stage('STAGE1 when branch') {
-        when {
-            expression{
+            when {
+                expression{
                 return env.GIT_BRANCH == 'origin/main'
             }
         }
-        steps{
-            echo "this is stage 1 and current env is ${env.CURRENT_ENV}"
+            steps{
+                 echo "this is stage 1 and current env is ${env.CURRENT_ENV}"
             sh '''
             pwd
             ls -lrt
             sleep 5
-            
             '''
         }
     }
-    stage(' stage2 when environment'){
-    when{
-        environment name: 'CURRENT_ENV', value: 'prod'
+        stage(' stage2 when environment') {
+            when{
+                environment name: 'CURRENT_ENV', value: 'prod'
+       }
+            steps{
+                echo "this is stage 2 and current env is ${env.CURRENT_ENV}"
+                sh '''
+                pwd
+                ls -lrt
+                sleep 5
+            '''
+            } 
     }
-    steps{
-        echo "this is stage 2 and current env is ${env.CURRENT_ENV}"
-        sh '''
-        pwd
-        ls -lrt
-        sleep 5
-        '''
+        stage('stage3 when parameter') {
+            when {
+                expression {params.DEPLOY == true}
+           }
+            steps{
+                echo "this is stage 3 and current env is ${env.CURRENT_ENV}"
+                sh 'sleep 5'
+        }
+    }
     }
 }
-    stage('stage3 when parameter'){
-    when{
-        expression {params.DEPLOY == true}
-        }
-        steps{
-            echo "this is stage 3 and current env is ${env.CURRENT_ENV}"
-           sh 'sleep 5'
-        }
-    }
 
     
             
